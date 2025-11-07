@@ -10,7 +10,8 @@ Classes:
     Bridge: Base class for model bridges
     LLMBridge: Bridge implementation for language models
     VLMBridge: Bridge implementation for vision-language models
-    AutoBridge: Automatic bridge selection based on model type
+    AutoBridge: Automatic bridge selection based on model type (from auto_bridge)
+    AutoBridge (from megatron_bridge_wrapper): Wrapper for Megatron-Bridge integration
 
 Functions:
     register_model: Decorator to register model classes
@@ -20,3 +21,9 @@ from .auto_bridge import AutoBridge
 from .bridge import Bridge, register_model
 from .llm_bridge import LLMBridge
 from .vlm_bridge import VLMBridge
+
+# Import the Megatron-Bridge wrapper (available as MegatronBridgeWrapper to avoid name conflict)
+try:
+    from .megatron_bridge_wrapper import AutoBridge as MegatronBridgeWrapper
+except ImportError:
+    MegatronBridgeWrapper = None
